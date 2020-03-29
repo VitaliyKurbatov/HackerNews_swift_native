@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,7 @@
 		FE2DBFA224314AEC0036289A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA024314AEC0036289A /* Main.storyboard */; };
 		FE2DBFA424314AED0036289A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA324314AED0036289A /* Assets.xcassets */; };
 		FE2DBFA724314AED0036289A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA524314AED0036289A /* LaunchScreen.storyboard */; };
-		FE2DBFB424314E930036289A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFB324314E930036289A /* GoogleService-Info.plist */; };
+		FE46C8AF24315A00002228EF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE46C8AE24315A00002228EF /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		FE2DBFA324314AED0036289A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE2DBFA624314AED0036289A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE2DBFA824314AED0036289A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE2DBFB324314E930036289A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FE46C8AE24315A00002228EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,7 @@
 		FE2DBFAE24314BC00036289A /* Google api */ = {
 			isa = PBXGroup;
 			children = (
-				FE2DBFB324314E930036289A /* GoogleService-Info.plist */,
+				FE46C8AE24315A00002228EF /* GoogleService-Info.plist */,
 			);
 			path = "Google api";
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE2DBFA724314AED0036289A /* LaunchScreen.storyboard in Resources */,
-				FE2DBFB424314E930036289A /* GoogleService-Info.plist in Resources */,
+				FE46C8AF24315A00002228EF /* GoogleService-Info.plist in Resources */,
 				FE2DBFA424314AED0036289A /* Assets.xcassets in Resources */,
 				FE2DBFA224314AEC0036289A /* Main.storyboard in Resources */,
 			);
