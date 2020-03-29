@@ -6,6 +6,6 @@ target 'NewsTestMotor' do
   #use_frameworks!
 	use_modular_headers!
 
-  #pod 'Firebase/Analytics'
+  pod 'Firebase/Analytics'
 
 end
