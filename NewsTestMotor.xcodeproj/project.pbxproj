@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		316965FA9A13CD2F648E73C0 /* Pods_NewsTestMotor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD24195DE2E92E8A7B093EAC /* Pods_NewsTestMotor.framework */; };
+		AB2524DD3D6D0EDD6B7B417D /* libPods-NewsTestMotor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBED7AFFC5BC286B9901253D /* libPods-NewsTestMotor.a */; };
 		FE2DBF9B24314AEC0036289A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2DBF9A24314AEC0036289A /* AppDelegate.swift */; };
 		FE2DBF9F24314AEC0036289A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2DBF9E24314AEC0036289A /* ViewController.swift */; };
 		FE2DBFA224314AEC0036289A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA024314AEC0036289A /* Main.storyboard */; };
@@ -17,9 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EBED7AFFC5BC286B9901253D /* libPods-NewsTestMotor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NewsTestMotor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2EECA89A1F38812AE849BFF /* Pods-NewsTestMotor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsTestMotor.release.xcconfig"; path = "Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor.release.xcconfig"; sourceTree = "<group>"; };
 		F92ABB8E481803CFE83A319B /* Pods-NewsTestMotor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsTestMotor.debug.xcconfig"; path = "Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor.debug.xcconfig"; sourceTree = "<group>"; };
-		FD24195DE2E92E8A7B093EAC /* Pods_NewsTestMotor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsTestMotor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE2DBF9724314AEC0036289A /* NewsTestMotor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsTestMotor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE2DBF9A24314AEC0036289A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE2DBF9E24314AEC0036289A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				316965FA9A13CD2F648E73C0 /* Pods_NewsTestMotor.framework in Frameworks */,
+				AB2524DD3D6D0EDD6B7B417D /* libPods-NewsTestMotor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +45,7 @@
 		9CFA8CDCBF3B2E0510CF0C67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FD24195DE2E92E8A7B093EAC /* Pods_NewsTestMotor.framework */,
+				EBED7AFFC5BC286B9901253D /* libPods-NewsTestMotor.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -110,7 +110,6 @@
 				FE2DBF9324314AEC0036289A /* Sources */,
 				FE2DBF9424314AEC0036289A /* Frameworks */,
 				FE2DBF9524314AEC0036289A /* Resources */,
-				2D2A6D50624A33B7608FA7D8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -169,23 +168,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2D2A6D50624A33B7608FA7D8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D9BD5E0B9F477576DA4264F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
