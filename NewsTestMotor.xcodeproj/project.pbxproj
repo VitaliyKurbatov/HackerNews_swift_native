@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB2524DD3D6D0EDD6B7B417D /* libPods-NewsTestMotor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBED7AFFC5BC286B9901253D /* libPods-NewsTestMotor.a */; };
+		1839FE487D988881B022A142 /* libPods-NewsTestMotor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5FFEB8E712295877036AC /* libPods-NewsTestMotor.a */; };
 		FE2DBF9B24314AEC0036289A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2DBF9A24314AEC0036289A /* AppDelegate.swift */; };
 		FE2DBF9F24314AEC0036289A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2DBF9E24314AEC0036289A /* ViewController.swift */; };
 		FE2DBFA224314AEC0036289A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA024314AEC0036289A /* Main.storyboard */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EBED7AFFC5BC286B9901253D /* libPods-NewsTestMotor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NewsTestMotor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2C5FFEB8E712295877036AC /* libPods-NewsTestMotor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NewsTestMotor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2EECA89A1F38812AE849BFF /* Pods-NewsTestMotor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsTestMotor.release.xcconfig"; path = "Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor.release.xcconfig"; sourceTree = "<group>"; };
 		F92ABB8E481803CFE83A319B /* Pods-NewsTestMotor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsTestMotor.debug.xcconfig"; path = "Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor.debug.xcconfig"; sourceTree = "<group>"; };
 		FE2DBF9724314AEC0036289A /* NewsTestMotor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsTestMotor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2524DD3D6D0EDD6B7B417D /* libPods-NewsTestMotor.a in Frameworks */,
+				1839FE487D988881B022A142 /* libPods-NewsTestMotor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +45,7 @@
 		9CFA8CDCBF3B2E0510CF0C67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EBED7AFFC5BC286B9901253D /* libPods-NewsTestMotor.a */,
+				B2C5FFEB8E712295877036AC /* libPods-NewsTestMotor.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -346,7 +346,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B3DG4M692V;
 				INFOPLIST_FILE = NewsTestMotor/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,7 +366,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B3DG4M692V;
 				INFOPLIST_FILE = NewsTestMotor/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
