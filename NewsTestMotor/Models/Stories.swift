@@ -7,7 +7,7 @@
 //
 
 enum StoryType: Int {
-	case new = 1
+	case new = 0
 	case top
 	case best
 	
@@ -21,13 +21,55 @@ enum StoryType: Int {
 			return "Best"
 		}
 	}
+	
+	var pathComponent: String {
+		switch self {
+		case .new:
+			return "v0/newstories"
+		case .top:
+			return "v0/topstories"
+		case .best:
+			return "v0/beststories"
+		}
+	}
 }
 
-struct Story {
-	var type: StoryType
-	var id: Int
-	var title: String
-	var time: Int64
-	var author: String
-	var urlPath: String
+struct Story: Codable {
+	let id: Int
+	let title: String
+	let time: Int64
+	let author: String
+	let score: Int
+	let urlPath: String
+	
+	enum CodingKeys: String, CodingKey {
+		case id
+		case title
+		case time
+		case author = "by"
+		case score
+		case urlPath = "url"
+	}
+	
+	/*
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		id = try container.decode(Int.self, forKey: .id)
+		title = try container.decode(String.self, forKey: .title)
+		time = try container.decode(Int64.self, forKey: .time)
+		author = try container.decode(String.self, forKey: .author)
+		score = try container.decode(Int.self, forKey: .score)
+		urlPath = try container.decode(String.self, forKey: .urlPath)
+	}
+
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encode(id, forKey: .id)
+		try container.encode(title, forKey: .title)
+		try container.encode(time, forKey: .time)
+		try container.encode(author, forKey: .author)
+		try container.encode(score, forKey: .score)
+		try container.encode(urlPath, forKey: .urlPath)
+	}
+	*/
 }

@@ -12,23 +12,35 @@ import FirebaseDatabase
 class StoryViewController: UIViewController {
 	@IBOutlet weak var segmentControl: UISegmentedControl!
 	
-	var storyTypes = [StoryType]()
+	var selectedStoryType: StoryType = .new {
+		didSet {
+			FirebaseDbManager.shared.fetchStory(type: selectedStoryType) { stories in
+				self.stories = stories
+				print("Fetched", stories.count)
+			}
+		}
+	}
+	
+	var stories = [Story]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupSegmentControl()
-		//FirebaseDbManager.shared.download()
+		initialSetupSegmentControl()
 	}
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
-		print(sender.selectedSegmentIndex)
+		if let storyType = StoryType(rawValue: sender.selectedSegmentIndex) {
+			selectedStoryType = storyType
+		}
 	}
 	
-	func setupSegmentControl() {
-		for i in 1...3 {
-			if let storyType = StoryType(rawValue: i) {
-				storyTypes.append(storyType)
-				segmentControl.setTitle(storyType.description, forSegmentAt: i - 1)
+	func initialSetupSegmentControl() {
+		for i in 0...2 {
+			let storyType = StoryType(rawValue: i)
+			segmentControl.setTitle(storyType?.description, forSegmentAt: i)
+			if storyType == .new {
+				selectedStoryType = .new
+				segmentControl.selectedSegmentIndex = i
 			}
 		}
 	}
