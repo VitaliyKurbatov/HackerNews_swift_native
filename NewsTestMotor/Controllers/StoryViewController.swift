@@ -12,12 +12,9 @@ import FirebaseDatabase
 class StoryViewController: UIViewController {
 	@IBOutlet weak var segmentControl: UISegmentedControl!
 	
-	var selectedStoryType: StoryType = .new {
+	var currentStoryType: StoryType = .new {
 		didSet {
-			FirebaseDbManager.shared.fetchStory(type: selectedStoryType) { stories in
-				self.stories = stories
-				print("Fetched", stories.count)
-			}
+			fetchStories(currentStoryType)
 		}
 	}
 	
@@ -30,7 +27,7 @@ class StoryViewController: UIViewController {
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
 		if let storyType = StoryType(rawValue: sender.selectedSegmentIndex) {
-			selectedStoryType = storyType
+			currentStoryType = storyType
 		}
 	}
 	
@@ -39,9 +36,16 @@ class StoryViewController: UIViewController {
 			let storyType = StoryType(rawValue: i)
 			segmentControl.setTitle(storyType?.description, forSegmentAt: i)
 			if storyType == .new {
-				selectedStoryType = .new
+				currentStoryType = .new
 				segmentControl.selectedSegmentIndex = i
 			}
+		}
+	}
+	
+	func fetchStories(_ type: StoryType) {
+		FirebaseDbManager.shared.fetchStories(type: currentStoryType) { stories in
+			self.stories = stories
+			print("Fetched", stories.count)
 		}
 	}
 }
