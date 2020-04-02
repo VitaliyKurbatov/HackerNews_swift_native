@@ -15,6 +15,8 @@
 		FE2DBFA424314AED0036289A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA324314AED0036289A /* Assets.xcassets */; };
 		FE2DBFA724314AED0036289A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA524314AED0036289A /* LaunchScreen.storyboard */; };
 		FE46C8AF24315A00002228EF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE46C8AE24315A00002228EF /* GoogleService-Info.plist */; };
+		FEB171D22436810E0083C2D6 /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB171D02436810E0083C2D6 /* StoryTableViewCell.swift */; };
+		FEB171D32436810E0083C2D6 /* StoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEB171D12436810E0083C2D6 /* StoryTableViewCell.xib */; };
 		FEB957922433E0F900B7C2BA /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB957912433E0F900B7C2BA /* StoryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +33,8 @@
 		FE2DBFA624314AED0036289A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE2DBFA824314AED0036289A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE46C8AE24315A00002228EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FEB171D02436810E0083C2D6 /* StoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
+		FEB171D12436810E0083C2D6 /* StoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoryTableViewCell.xib; sourceTree = "<group>"; };
 		FEB957912433E0F900B7C2BA /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +130,8 @@
 			children = (
 				FE2DBFA524314AED0036289A /* LaunchScreen.storyboard */,
 				FE2DBFA024314AEC0036289A /* Main.storyboard */,
+				FEB171D12436810E0083C2D6 /* StoryTableViewCell.xib */,
+				FEB171D02436810E0083C2D6 /* StoryTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -207,6 +213,7 @@
 				FE2DBFA724314AED0036289A /* LaunchScreen.storyboard in Resources */,
 				FE46C8AF24315A00002228EF /* GoogleService-Info.plist in Resources */,
 				FE2DBFA424314AED0036289A /* Assets.xcassets in Resources */,
+				FEB171D32436810E0083C2D6 /* StoryTableViewCell.xib in Resources */,
 				FE2DBFA224314AEC0036289A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,6 +254,7 @@
 				FEB957922433E0F900B7C2BA /* StoryViewController.swift in Sources */,
 				FE2DBF9B24314AEC0036289A /* AppDelegate.swift in Sources */,
 				FE2B005C2433F02E00F12EA4 /* Stories.swift in Sources */,
+				FEB171D22436810E0083C2D6 /* StoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

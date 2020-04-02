@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class StoryViewController: UIViewController {
 	@IBOutlet weak var segmentControl: UISegmentedControl!
+	@IBOutlet weak var tableView: UITableView!
 	
 	var currentStoryType: StoryType = .new {
 		didSet {
@@ -18,10 +19,15 @@ class StoryViewController: UIViewController {
 		}
 	}
 	
-	var stories = [Story]()
+	var stories = [Story]() {
+		didSet {
+			tableView.reloadData()
+		}
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupTableView()
 		initialSetupSegmentControl()
 	}
 
@@ -45,7 +51,24 @@ class StoryViewController: UIViewController {
 	func fetchStories(_ type: StoryType) {
 		FirebaseDbManager.shared.fetchStories(type: currentStoryType) { stories in
 			self.stories = stories
-			print("Fetched", stories.count)
 		}
+	}
+}
+
+extension StoryViewController: UITableViewDataSource, UITableViewDelegate {
+	func setupTableView() {
+		tableView.register(UINib(nibName: "StoryTableViewCell", bundle: nil),
+						   forCellReuseIdentifier: "\(StoryTableViewCell.self)")
+		tableView.tableFooterView = UIView()
+	}
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return stories.count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "\(StoryTableViewCell.self)", for: indexPath) as! StoryTableViewCell
+		cell.configure(stories[indexPath.row])
+		return cell
 	}
 }

@@ -14,11 +14,11 @@ enum StoryType: Int {
 	var description: String {
 		switch self {
 		case .new:
-			return "New"
+			return "News stories"
 		case .top:
-			return "Top"
+			return "Top stories"
 		case .best:
-			return "Best"
+			return "Best stories"
 		}
 	}
 	
