@@ -43,9 +43,9 @@ class FirebaseDbManager {
 		}
 	}
 	
-	private func downloadIdsOfStories(_ type: StoryType, completion: @escaping (([Int]?) -> Void)) {
+	private func downloadIdsOfStories(_ type: StoryType, completion: @escaping ([Int]?) -> Void) {
 		queue.async {
-			self.dbRef.child(type.pathComponent).queryLimited(toFirst: 20).observeSingleEvent(of: .value) { snapshot in
+			self.dbRef.child(type.pathComponent).queryLimited(toFirst: 10).observeSingleEvent(of: .value) { snapshot in
 				if let storyIds = snapshot.value as? [Int] {
 					completion(storyIds)
 				} else {

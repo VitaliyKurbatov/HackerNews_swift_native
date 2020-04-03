@@ -9,6 +9,8 @@
 import UIKit
 
 class StoryTableViewCell: UITableViewCell {
+	static let reuseId = "StoryTableViewCell"
+	
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var scoreLabel: UILabel!
 	@IBOutlet weak var dateLabel: UILabel!
@@ -34,12 +36,21 @@ class StoryTableViewCell: UITableViewCell {
 //        // Configure the view for the selected state
 //    }
 	
-	func configure(_ story: Story) {
+	func configure(story: Story) {
 		titleLabel.text = "     \(story.title)"
 		//titleLabel.attributedText = NSMutableAttributedString(string: story.title)
 		scoreLabel.text = String(story.score)
-		dateLabel.text = String(story.time)
+		dateLabel.text = convertDate(story.time)
 		authorLabel.text = story.author
 		urlPath = story.urlPath
+	}
+	
+	func convertDate(_ timestamp: Int) -> String {
+		let date = Date(timeIntervalSince1970: Double(timestamp))
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = .current
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .short
+		return dateFormatter.string(from: date)
 	}
 }

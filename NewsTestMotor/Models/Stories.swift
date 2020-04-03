@@ -36,8 +36,9 @@ enum StoryType: Int {
 
 struct Story: Codable {
 	let id: Int
+	var type: StoryType?
 	let title: String
-	let time: Int64
+	let time: Int
 	let author: String
 	let score: Int
 	let urlPath: String

@@ -13,6 +13,8 @@ class StoryViewController: UIViewController {
 	@IBOutlet weak var segmentControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 	
+	let availableStoriesTypes: [StoryType] = [.new, .top, .best]
+	
 	var currentStoryType: StoryType = .new {
 		didSet {
 			fetchStories(currentStoryType)
@@ -38,12 +40,11 @@ class StoryViewController: UIViewController {
 	}
 	
 	func initialSetupSegmentControl() {
-		for i in 0...2 {
-			let storyType = StoryType(rawValue: i)
-			segmentControl.setTitle(storyType?.description, forSegmentAt: i)
-			if storyType == .new {
+		for (index, type) in availableStoriesTypes.enumerated() {
+			segmentControl.setTitle(type.description, forSegmentAt: index)
+			if type == .new {
 				currentStoryType = .new
-				segmentControl.selectedSegmentIndex = i
+				segmentControl.selectedSegmentIndex = index
 			}
 		}
 	}
@@ -57,8 +58,8 @@ class StoryViewController: UIViewController {
 
 extension StoryViewController: UITableViewDataSource, UITableViewDelegate {
 	func setupTableView() {
-		tableView.register(UINib(nibName: "StoryTableViewCell", bundle: nil),
-						   forCellReuseIdentifier: "\(StoryTableViewCell.self)")
+		let nib = UINib(nibName: "\(StoryTableViewCell.self)", bundle: nil)
+		tableView.register(nib, forCellReuseIdentifier: StoryTableViewCell.reuseId)
 		tableView.tableFooterView = UIView()
 	}
 	
@@ -67,8 +68,8 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "\(StoryTableViewCell.self)", for: indexPath) as! StoryTableViewCell
-		cell.configure(stories[indexPath.row])
+		let cell = tableView.dequeueReusableCell(withIdentifier: StoryTableViewCell.reuseId, for: indexPath) as! StoryTableViewCell
+		cell.configure(story: stories[indexPath.row])
 		return cell
 	}
 }
