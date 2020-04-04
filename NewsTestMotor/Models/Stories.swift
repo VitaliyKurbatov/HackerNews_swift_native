@@ -41,7 +41,7 @@ struct Story: Codable {
 	let time: Int
 	let author: String
 	let score: Int
-	let urlPath: String
+	let urlPath: String?
 	
 	enum CodingKeys: String, CodingKey {
 		case id

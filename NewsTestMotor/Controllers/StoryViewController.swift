@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
 class StoryViewController: UIViewController {
 	@IBOutlet weak var segmentControl: UISegmentedControl!
@@ -17,15 +16,16 @@ class StoryViewController: UIViewController {
 	
 	var currentStoryType: StoryType = .new {
 		didSet {
-			fetchStories(currentStoryType)
+			fetchIdsStories(currentStoryType)
 		}
 	}
 	
-	var stories = [Story]() {
+	var ids = [Int]() {
 		didSet {
 			tableView.reloadData()
 		}
 	}
+	var stories: [Story?] = Array(repeating: nil, count: 200)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,6 +35,9 @@ class StoryViewController: UIViewController {
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
 		if let storyType = StoryType(rawValue: sender.selectedSegmentIndex) {
+			stories = Array(repeating: nil, count: 200)
+			ids.removeAll()
+			tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 			currentStoryType = storyType
 		}
 	}
@@ -49,15 +52,20 @@ class StoryViewController: UIViewController {
 		}
 	}
 	
-	func fetchStories(_ type: StoryType) {
-		FirebaseDbManager.shared.fetchStories(type: currentStoryType) { stories in
-			self.stories = stories
+	func fetchIdsStories(_ type: StoryType) {
+		LoadManager.shared.fetchIdsStories(type: type) { (storyType, ids) in
+			if storyType == self.currentStoryType {
+				self.ids = ids
+			}
 		}
 	}
 }
 
-extension StoryViewController: UITableViewDataSource, UITableViewDelegate {
+extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
 	func setupTableView() {
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.prefetchDataSource = self
 		let nib = UINib(nibName: "\(StoryTableViewCell.self)", bundle: nil)
 		tableView.register(nib, forCellReuseIdentifier: StoryTableViewCell.reuseId)
 		tableView.tableFooterView = UIView()
@@ -69,7 +77,48 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: StoryTableViewCell.reuseId, for: indexPath) as! StoryTableViewCell
-		cell.configure(story: stories[indexPath.row])
+		let row = indexPath.row
+		
+		if let story = stories[row] {
+			cell.configure(story: story)
+		} else {
+			cell.setDefaultUI()
+			if ids.indices.contains(row) {
+				let id = ids[row]
+				LoadManager.shared.fetchStory(for: id) { [indexPath, id] story in
+					guard let story = story, story.id == id else { return }
+					self.stories[indexPath.row] = story
+					guard tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
+					tableView.reloadRows(at: [indexPath], with: .fade)
+				}
+			}
+		}
+		
 		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			let row = indexPath.row
+			if ids.indices.contains(row) {
+				let id = ids[row]
+				LoadManager.shared.fetchStory(for: id) { [indexPath, id] story in
+					guard let story = story, story.id == id else { return }
+					self.stories[indexPath.row] = story
+					guard tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
+					tableView.reloadRows(at: [indexPath], with: .fade)
+				}
+			}
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			let row = indexPath.row
+			if ids.indices.contains(row) {
+				//let id = ids[row]
+				//LoadManager.shared.cancelLoadOfStory(id: id)
+			}
+		}
 	}
 }
