@@ -43,13 +43,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F1C750F172FD1476B986ADA9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		FE2B00582433EABC00F12EA4 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,7 +56,6 @@
 			children = (
 				FE2DBF9924314AEC0036289A /* NewsTestMotor */,
 				FE2DBF9824314AEC0036289A /* Products */,
-				F1C750F172FD1476B986ADA9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
