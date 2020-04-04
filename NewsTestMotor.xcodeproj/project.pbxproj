@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1839FE487D988881B022A142 /* libPods-NewsTestMotor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5FFEB8E712295877036AC /* libPods-NewsTestMotor.a */; };
 		FE2B005A2433EB2900F12EA4 /* LoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2B00592433EB2900F12EA4 /* LoadManager.swift */; };
 		FE2B005C2433F02E00F12EA4 /* Stories.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2B005B2433F02E00F12EA4 /* Stories.swift */; };
 		FE2DBF9B24314AEC0036289A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2DBF9A24314AEC0036289A /* AppDelegate.swift */; };
@@ -20,9 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B2C5FFEB8E712295877036AC /* libPods-NewsTestMotor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NewsTestMotor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2EECA89A1F38812AE849BFF /* Pods-NewsTestMotor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsTestMotor.release.xcconfig"; path = "Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor.release.xcconfig"; sourceTree = "<group>"; };
-		F92ABB8E481803CFE83A319B /* Pods-NewsTestMotor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsTestMotor.debug.xcconfig"; path = "Target Support Files/Pods-NewsTestMotor/Pods-NewsTestMotor.debug.xcconfig"; sourceTree = "<group>"; };
 		FE2B00592433EB2900F12EA4 /* LoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadManager.swift; sourceTree = "<group>"; };
 		FE2B005B2433F02E00F12EA4 /* Stories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stories.swift; sourceTree = "<group>"; };
 		FE2DBF9724314AEC0036289A /* NewsTestMotor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsTestMotor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,26 +37,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1839FE487D988881B022A142 /* libPods-NewsTestMotor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9CFA8CDCBF3B2E0510CF0C67 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B2C5FFEB8E712295877036AC /* libPods-NewsTestMotor.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		F1C750F172FD1476B986ADA9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F92ABB8E481803CFE83A319B /* Pods-NewsTestMotor.debug.xcconfig */,
-				F2EECA89A1F38812AE849BFF /* Pods-NewsTestMotor.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -79,7 +64,6 @@
 				FE2DBF9924314AEC0036289A /* NewsTestMotor */,
 				FE2DBF9824314AEC0036289A /* Products */,
 				F1C750F172FD1476B986ADA9 /* Pods */,
-				9CFA8CDCBF3B2E0510CF0C67 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,7 +131,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE2DBFAB24314AED0036289A /* Build configuration list for PBXNativeTarget "NewsTestMotor" */;
 			buildPhases = (
-				D9BD5E0B9F477576DA4264F3 /* [CP] Check Pods Manifest.lock */,
 				FE2DBF9324314AEC0036289A /* Sources */,
 				FE2DBF9424314AEC0036289A /* Frameworks */,
 				FE2DBF9524314AEC0036289A /* Resources */,
@@ -207,31 +190,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D9BD5E0B9F477576DA4264F3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NewsTestMotor-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FE2DBF9324314AEC0036289A /* Sources */ = {
@@ -384,7 +342,6 @@
 		};
 		FE2DBFAC24314AED0036289A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F92ABB8E481803CFE83A319B /* Pods-NewsTestMotor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -404,7 +361,6 @@
 		};
 		FE2DBFAD24314AED0036289A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2EECA89A1F38812AE849BFF /* Pods-NewsTestMotor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
