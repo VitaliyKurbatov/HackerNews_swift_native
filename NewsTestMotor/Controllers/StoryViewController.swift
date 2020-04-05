@@ -111,7 +111,7 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 				self.stories[indexPath.row] = story
 				guard self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
 				self.tableView.beginUpdates()
-				self.tableView.reloadRows(at: [indexPath], with: .fade)
+				self.tableView.reloadRows(at: [indexPath], with: .automatic)
 				self.tableView.endUpdates()
 			}
 		}

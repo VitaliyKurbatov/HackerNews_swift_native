@@ -14,9 +14,8 @@ class LoadManager {
 	private let https = "https"
 	private let urlHost = "hacker-news.firebaseio.com"
 	
-	let queue = DispatchQueue(label: "LoadQueue", qos: .userInitiated)
-	
-	var dataTasks = [URLSessionDataTask]()
+	private let loadQueue = DispatchQueue(label: "LoadQueue", qos: .userInitiated, attributes: .concurrent)
+	private var dataTasks = [URLSessionDataTask]()
 	
 	private init() { }
 	
@@ -36,11 +35,10 @@ class LoadManager {
 			return
 		}
 		
-		if dataTasks.contains(where: { $0.originalRequest?.url == url }) {
-			return
-		}
-		
-		queue.async {
+		loadQueue.async {
+			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
+				return
+			}
 			let dataTask = URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
 				var result = [Int]()
 				guard error == nil
@@ -82,11 +80,10 @@ class LoadManager {
 			return
 		}
 		
-		if dataTasks.contains(where: { $0.originalRequest?.url == url }) {
-			return
-		}
-		
-		queue.async {
+		loadQueue.async {
+			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
+				return
+			}
 			let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
 				var result: Story?
 				guard error == nil
@@ -117,7 +114,7 @@ class LoadManager {
 	}
 	
 	func cancelAllTasks() {
-		queue.async {
+		loadQueue.sync {
 			self.dataTasks.forEach({ $0.cancel() })
 			self.dataTasks.removeAll()
 		}
