@@ -59,9 +59,9 @@ class StoryViewController: UIViewController {
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
 		if let storyType = StoryType(rawValue: sender.selectedSegmentIndex) {
-			LoadManager.shared.cancelAllTasks()
 			createEmptyArrayStories()
 			idsStories.removeAll()
+			LoadManager.shared.cancelAllTasks()
 			tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 			currentStoryType = storyType
 		}
