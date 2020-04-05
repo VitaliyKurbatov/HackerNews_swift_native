@@ -12,6 +12,7 @@ class StoryTableViewCell: UITableViewCell {
 	static let reuseId = "StoryTableViewCell"
 	
 	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var stackView: UIStackView!
 	@IBOutlet weak var scoreLabel: UILabel!
 	@IBOutlet weak var dateLabel: UILabel!
 	@IBOutlet weak var authorLabel: UILabel!
@@ -19,14 +20,13 @@ class StoryTableViewCell: UITableViewCell {
 	var urlPath: String?
 	
 	func setDefaultUI() {
-		titleLabel.text = nil
-		scoreLabel.text = nil
-		dateLabel.text = nil
-		authorLabel.text = nil
-		urlPath = String()
+		stackView.isHidden = true
+		titleLabel.text = "Loading..."
+		urlPath = nil
 	}
 	
 	func configure(story: Story) {
+		stackView.isHidden = false
 		titleLabel.text = "     \(story.title)"
 		scoreLabel.text = String(story.score)
 		dateLabel.text = convertDate(story.time)

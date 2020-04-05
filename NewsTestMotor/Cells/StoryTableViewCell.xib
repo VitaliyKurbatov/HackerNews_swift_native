@@ -17,10 +17,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkr-88-kOl">
-                        <rect key="frame" x="16" y="8" width="288" height="21.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUw-bF-39K">
+                        <rect key="frame" x="16" y="12" width="288" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fXN-4f-lcr">
@@ -70,13 +70,13 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Dkr-88-kOl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="27n-cq-XrE"/>
-                    <constraint firstItem="fXN-4f-lcr" firstAttribute="top" secondItem="Dkr-88-kOl" secondAttribute="bottom" constant="12" id="3mJ-9y-9Hb"/>
-                    <constraint firstItem="Dkr-88-kOl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5Ka-Ia-TJb"/>
+                    <constraint firstItem="FUw-bF-39K" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="8pw-Cl-UCx"/>
                     <constraint firstAttribute="bottom" secondItem="fXN-4f-lcr" secondAttribute="bottom" constant="12" id="9hW-yO-jc9"/>
-                    <constraint firstAttribute="trailing" secondItem="Dkr-88-kOl" secondAttribute="trailing" constant="16" id="IPZ-B8-jed"/>
                     <constraint firstAttribute="trailing" secondItem="fXN-4f-lcr" secondAttribute="trailing" constant="16" id="IwB-aP-IMg"/>
+                    <constraint firstItem="FUw-bF-39K" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="QAD-xX-rDX"/>
                     <constraint firstItem="fXN-4f-lcr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZV3-D8-eRx"/>
+                    <constraint firstItem="fXN-4f-lcr" firstAttribute="top" secondItem="FUw-bF-39K" secondAttribute="bottom" constant="8.5" id="aqi-qt-KM3"/>
+                    <constraint firstAttribute="trailing" secondItem="FUw-bF-39K" secondAttribute="trailing" constant="16" id="q1R-ek-2vR"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -84,7 +84,8 @@
                 <outlet property="authorLabel" destination="I6c-0l-jyO" id="8w8-iq-kD8"/>
                 <outlet property="dateLabel" destination="Btq-Je-wjf" id="aWf-vA-dF4"/>
                 <outlet property="scoreLabel" destination="B9R-23-UJa" id="mAK-dk-d7i"/>
-                <outlet property="titleLabel" destination="Dkr-88-kOl" id="qcC-Hd-MWN"/>
+                <outlet property="stackView" destination="fXN-4f-lcr" id="tcz-6m-gL8"/>
+                <outlet property="titleLabel" destination="FUw-bF-39K" id="5dy-Jw-Zka"/>
             </connections>
             <point key="canvasLocation" x="-213.04347826086959" y="19.084821428571427"/>
         </tableViewCell>
