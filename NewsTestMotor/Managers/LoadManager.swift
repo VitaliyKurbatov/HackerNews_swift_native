@@ -11,52 +11,68 @@ import Foundation
 class LoadManager {
 	static let shared = LoadManager()
 	
-	private let urlScheme = "https"
+	private let https = "https"
 	private let urlHost = "hacker-news.firebaseio.com"
 	
-	let queue = DispatchQueue(label: "DownloadQueue", qos: .userInitiated, attributes: .concurrent)
+	let queue = DispatchQueue(label: "LoadQueue", qos: .userInitiated)
 	
 	var dataTasks = [URLSessionDataTask]()
 	
 	private init() { }
 	
-	func fetchIdsStories(type: StoryType, completion: @escaping ((StoryType, [Int])) -> Void) {
+	func loadIdsStories(type: StoryType, completion: @escaping ((type: StoryType, ids: [Int])) -> Void) {
 		var components = URLComponents()
-		components.scheme = urlScheme
+		components.scheme = https
 		components.host = urlHost
 		components.path = "/\(type.pathComponent).json"
 		
 		let queryItems = [URLQueryItem(name: "orderBy", value: "\"$key\""),
-						  URLQueryItem(name: "limitToFirst", value: "200")]
+						  URLQueryItem(name: "limitToFirst", value: String(StoryViewController.maxStoriesCount))]
 		components.queryItems = queryItems
 		
 		guard let url = components.url else {
 			completion((type, []))
+			assert(false)
 			return
 		}
-		//print(url)
 		
-		queue.async { [type] in
-			var result = [Int]()
-			do {
-				let data = try Data(contentsOf: url, options: .uncached)
-				let ids = try JSONDecoder().decode([Int].self, from: data)
-				result = ids
-			} catch {
-				
+		if dataTasks.contains(where: { $0.originalRequest?.url == url }) {
+			return
+		}
+		
+		queue.async {
+			let dataTask = URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
+				var result = [Int]()
+				guard error == nil
+					, let data = data else {
+						if let index = self.dataTasks.firstIndex(where: { $0.originalRequest?.url == response?.url }) {
+							self.dataTasks.remove(at: index)
+						}
+						DispatchQueue.main.async {
+							completion((type, result))
+						}
+						return
+				}
+				do {
+					result = try JSONDecoder().decode([Int].self, from: data)
+				} catch {
+					assert(false)
+				}
+				DispatchQueue.main.async {
+					completion((type, result))
+				}
 			}
-			DispatchQueue.main.async {
-				completion((type, result))
-			}
+			self.dataTasks.append(dataTask)
+			dataTask.resume()
 		}
 	}
 	
-	func createPathForItem(id: Int) -> String {
-		return "\(urlScheme)://\(urlHost)/v0/item/\(id).json"
+	func createPathToItem(id: Int) -> String {
+		return "\(https)://\(urlHost)/v0/item/\(id).json"
 	}
 	
-	func fetchStory(for id: Int, completion: @escaping (Story?) -> Void) {
-		let path = createPathForItem(id: id)
+	func loadStory(for id: Int, completion: @escaping (Story?) -> Void) {
+		let path = createPathToItem(id: id)
 		guard let url = URL(string: path) else {
 			assert(false)
 			completion(nil)
@@ -69,22 +85,21 @@ class LoadManager {
 		
 		queue.async {
 			let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+				var result: Story?
 				guard error == nil
 					, let data = data else {
-						//assert(false)
 						if let index = self.dataTasks.firstIndex(where: { $0.originalRequest?.url == response?.url }) {
 							self.dataTasks.remove(at: index)
 						}
-						completion(nil)
+						DispatchQueue.main.async {
+							completion(result)
+						}
 						return
 				}
-				var result: Story?
 				do {
-					let story = try JSONDecoder().decode(Story.self, from: data)
-					result = story
+					result = try JSONDecoder().decode(Story.self, from: data)
 				} catch {
-					result = nil
-					assert(false)
+					//assert(false)
 				}
 				if let index = self.dataTasks.firstIndex(where: { $0.originalRequest?.url == response?.url }) {
 					self.dataTasks.remove(at: index)
@@ -93,18 +108,15 @@ class LoadManager {
 					completion(result)
 				}
 			}
-			dataTask.resume()
 			self.dataTasks.append(dataTask)
+			dataTask.resume()
 		}
 	}
 	
-	func cancelLoadOfStory(id: Int) {
-		let path = createPathForItem(id: id)
-		guard let url = URL(string: path) else { return }
-		
-		if let index = dataTasks.firstIndex(where: { $0.originalRequest?.url == url }) {
-			dataTasks[index].cancel()
-			dataTasks.remove(at: index)
+	func cancelAllTasks() {
+		queue.async {
+			self.dataTasks.forEach({ $0.cancel() })
+			self.dataTasks.removeAll()
 		}
 	}
 }

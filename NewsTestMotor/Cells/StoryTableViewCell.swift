@@ -16,16 +16,7 @@ class StoryTableViewCell: UITableViewCell {
 	@IBOutlet weak var dateLabel: UILabel!
 	@IBOutlet weak var authorLabel: UILabel!
 	
-	var urlPath: String? // = String()
-	
-	override func prepareForReuse() {
-//		titleLabel.text = nil
-//		titleLabel.attributedText = nil
-//		scoreLabel.text = nil
-//		dateLabel.text = nil
-//		authorLabel.text = nil
-//		urlPath = String()
-	}
+	var urlPath: String?
 	
 	func setDefaultUI() {
 		titleLabel.text = nil
