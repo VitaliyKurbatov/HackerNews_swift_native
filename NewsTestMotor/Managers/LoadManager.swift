@@ -58,6 +58,9 @@ class LoadManager {
 				} catch {
 					assert(false)
 				}
+				if let index = self.dataTasks.firstIndex(where: { $0.originalRequest?.url == response?.url }) {
+					self.dataTasks.remove(at: index)
+				}
 				DispatchQueue.main.async {
 					completion((type, result))
 				}
