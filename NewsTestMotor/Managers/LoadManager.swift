@@ -35,8 +35,11 @@ class LoadManager {
 			return
 		}
 		
-		loadQueue.async {
+		loadQueue.async { [type] in
 			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
+				DispatchQueue.main.async {
+					completion((type, []))
+				}
 				return
 			}
 			let dataTask = URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
@@ -82,6 +85,9 @@ class LoadManager {
 		
 		loadQueue.async {
 			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
+				DispatchQueue.main.async {
+					completion(nil)
+				}
 				return
 			}
 			let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in

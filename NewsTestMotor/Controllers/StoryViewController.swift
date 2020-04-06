@@ -92,20 +92,20 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 			cell.configure(story: story)
 		} else {
 			cell.setDefaultUI()
-			fetchStoryAndUpdate(idIndexInArray: row, indexPath: indexPath)
+			fetchStoryAndUpdate(indexOfIdInArray: row, indexPath: indexPath)
 		}
 		return cell
 	}
 	
 	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
 		for indexPath in indexPaths {
-			fetchStoryAndUpdate(idIndexInArray: indexPath.row, indexPath: indexPath)
+			fetchStoryAndUpdate(indexOfIdInArray: indexPath.row, indexPath: indexPath)
 		}
 	}
 	
-	func fetchStoryAndUpdate(idIndexInArray: Int, indexPath: IndexPath) {
-		if idsStories.indices.contains(idIndexInArray) {
-			let id = idsStories[idIndexInArray]
+	func fetchStoryAndUpdate(indexOfIdInArray: Int, indexPath: IndexPath) {
+		if idsStories.indices.contains(indexOfIdInArray) {
+			let id = idsStories[indexOfIdInArray]
 			LoadManager.shared.loadStory(for: id) { [indexPath, id] story in
 				guard let story = story, story.id == id else { return }
 				self.stories[indexPath.row] = story
