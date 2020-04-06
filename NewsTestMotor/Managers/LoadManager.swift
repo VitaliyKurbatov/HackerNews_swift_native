@@ -11,6 +11,8 @@ import Foundation
 class LoadManager {
 	static let shared = LoadManager()
 	
+	let maxStoriesCount = 300
+	
 	private let https = "https"
 	private let urlHost = "hacker-news.firebaseio.com"
 	
@@ -26,7 +28,7 @@ class LoadManager {
 		components.path = "/\(type.pathComponent).json"
 		
 		let queryItems = [URLQueryItem(name: "orderBy", value: "\"$key\""),
-						  URLQueryItem(name: "limitToFirst", value: String(StoryViewController.maxStoriesCount))]
+						  URLQueryItem(name: "limitToFirst", value: String(maxStoriesCount))]
 		components.queryItems = queryItems
 		
 		guard let url = components.url else {
@@ -116,6 +118,27 @@ class LoadManager {
 			}
 			self.dataTasks.append(dataTask)
 			dataTask.resume()
+		}
+	}
+	
+	func loadStories(for ids: [Int], type: StoryType, completion: @escaping ((type: StoryType, stories: [Story?])) -> Void) {
+		var result = [Story?]()
+		
+		let group = DispatchGroup()
+		for id in ids {
+			group.enter()
+			loadStory(for: id) { story in
+				result.append(story)
+				group.leave()
+			}
+		}
+		
+		group.notify(queue: .main) {
+			var sortedResult = [Story?]()
+			for id in ids {
+				sortedResult.append(result.first(where: { $0?.id == id }) ?? nil)
+			}
+			completion((type, sortedResult))
 		}
 	}
 	

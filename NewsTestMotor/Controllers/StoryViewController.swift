@@ -13,7 +13,7 @@ class StoryViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	
 	let availableStoriesTypes: [StoryType] = [.new, .top, .best]
-	static let maxStoriesCount = 300
+	let countOfFirstStories = 20
 	
 	var currentStoryType: StoryType = .new {
 		didSet {
@@ -21,12 +21,10 @@ class StoryViewController: UIViewController {
 		}
 	}
 	
-	var idsStories = [Int]() {
-		didSet {
-			tableView.reloadData()
-		}
-	}
+	var idsStories = [Int]()
 	var stories = [Story?]()
+	
+	var prefetchIndeces = [Int]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -36,7 +34,7 @@ class StoryViewController: UIViewController {
 	}
 	
 	func createEmptyArrayStories() {
-		stories = Array(repeating: nil, count: StoryViewController.maxStoriesCount)
+		stories = Array(repeating: nil, count: countOfFirstStories)
 	}
 	
 	func initialSetupSegmentControl() {
@@ -50,19 +48,38 @@ class StoryViewController: UIViewController {
 	}
 	
 	func fetchIdsStories(_ type: StoryType) {
+		LoadManager.shared.cancelAllTasks()
 		LoadManager.shared.loadIdsStories(type: type) { (storyType, ids) in
 			if storyType == self.currentStoryType {
 				self.idsStories = ids
+				self.fetchFirstPacketOfStories()
 			}
+		}
+	}
+	
+	func fetchFirstPacketOfStories() {
+		guard !idsStories.isEmpty else { return }
+		let firstPacketIds = idsStories.prefix(countOfFirstStories).map({ $0 })
+		
+		LoadManager.shared.loadStories(for: firstPacketIds, type: currentStoryType) { (type, stories) in
+			guard self.currentStoryType == type else { return }
+			let tail: [Story?] = Array(repeating: nil,
+									   count: self.idsStories.count - self.countOfFirstStories)
+			self.stories = stories + tail
+			self.tableView.isScrollEnabled = true
+			self.tableView.reloadData()
 		}
 	}
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
 		if let storyType = StoryType(rawValue: sender.selectedSegmentIndex) {
-			createEmptyArrayStories()
-			idsStories.removeAll()
 			LoadManager.shared.cancelAllTasks()
+			idsStories.removeAll()
+			createEmptyArrayStories()
+			prefetchIndeces.removeAll()
+			tableView.reloadData()
 			tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+			tableView.isScrollEnabled = false
 			currentStoryType = storyType
 		}
 	}
@@ -78,6 +95,7 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 		tableView.register(nib, forCellReuseIdentifier: StoryTableViewCell.reuseId)
 		
 		tableView.tableFooterView = UIView()
+		tableView.isScrollEnabled = false
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,28 +110,34 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 			cell.configure(story: story)
 		} else {
 			cell.setDefaultUI()
-			fetchStoryAndUpdate(indexOfIdInArray: row, indexPath: indexPath)
+			fetchStoryAndUpdate(indexOfIdInArrayIds: row, indexPath: indexPath)
 		}
 		return cell
 	}
 	
 	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
 		for indexPath in indexPaths {
-			fetchStoryAndUpdate(indexOfIdInArray: indexPath.row, indexPath: indexPath)
+			fetchStoryAndUpdate(indexOfIdInArrayIds: indexPath.row, indexPath: indexPath)
 		}
 	}
 	
-	func fetchStoryAndUpdate(indexOfIdInArray: Int, indexPath: IndexPath) {
-		if idsStories.indices.contains(indexOfIdInArray) {
-			let id = idsStories[indexOfIdInArray]
-			LoadManager.shared.loadStory(for: id) { [indexPath, id] story in
-				guard let story = story, story.id == id else { return }
-				self.stories[indexPath.row] = story
-				guard self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
-				self.tableView.beginUpdates()
-				self.tableView.reloadRows(at: [indexPath], with: .automatic)
-				self.tableView.endUpdates()
-			}
+	func fetchStoryAndUpdate(indexOfIdInArrayIds: Int, indexPath: IndexPath) {
+		guard stories[indexOfIdInArrayIds] == nil
+			&& !prefetchIndeces.contains(indexOfIdInArrayIds) else { return }
+		
+		prefetchIndeces.append(indexOfIdInArrayIds)
+		//print(prefetchIndeces)
+		
+		guard idsStories.indices.contains(indexOfIdInArrayIds) else { return }
+		let id = idsStories[indexOfIdInArrayIds]
+		
+		LoadManager.shared.loadStory(for: id) { [indexPath, id] story in
+			guard let story = story, story.id == id else { return }
+			self.stories[indexPath.row] = story
+			guard self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
+			self.tableView.beginUpdates()
+			self.tableView.reloadRows(at: [indexPath], with: .automatic)
+			self.tableView.endUpdates()
 		}
 	}
 }
