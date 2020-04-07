@@ -11,6 +11,7 @@ import UIKit
 class StoryTableViewCell: UITableViewCell {
 	static let reuseId = "StoryTableViewCell"
 	
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var stackView: UIStackView!
 	@IBOutlet weak var scoreLabel: UILabel!
@@ -22,10 +23,13 @@ class StoryTableViewCell: UITableViewCell {
 	func setDefaultUI() {
 		stackView.isHidden = true
 		titleLabel.text = "Loading..."
+		activityIndicator.isHidden = false
+		activityIndicator.startAnimating()
 		urlPath = nil
 	}
 	
 	func configure(story: Story) {
+		activityIndicator.stopAnimating()
 		stackView.isHidden = false
 		titleLabel.text = "     \(story.title)"
 		scoreLabel.text = String(story.score)

@@ -17,6 +17,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-Qu-L5d">
+                        <rect key="frame" x="150" y="51.5" width="20" height="20"/>
+                    </activityIndicatorView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUw-bF-39K">
                         <rect key="frame" x="16" y="12" width="288" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
@@ -77,10 +80,13 @@
                     <constraint firstItem="fXN-4f-lcr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZV3-D8-eRx"/>
                     <constraint firstItem="fXN-4f-lcr" firstAttribute="top" secondItem="FUw-bF-39K" secondAttribute="bottom" constant="8.5" id="aqi-qt-KM3"/>
                     <constraint firstAttribute="trailing" secondItem="FUw-bF-39K" secondAttribute="trailing" constant="16" id="q1R-ek-2vR"/>
+                    <constraint firstItem="nOg-Qu-L5d" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="tMK-c5-crt"/>
+                    <constraint firstItem="nOg-Qu-L5d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="w1b-LH-ZFo"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="nOg-Qu-L5d" id="wU3-SM-Fdn"/>
                 <outlet property="authorLabel" destination="I6c-0l-jyO" id="8w8-iq-kD8"/>
                 <outlet property="dateLabel" destination="Btq-Je-wjf" id="aWf-vA-dF4"/>
                 <outlet property="scoreLabel" destination="B9R-23-UJa" id="mAK-dk-d7i"/>
