@@ -77,22 +77,22 @@ class LoadManager {
 		return "\(https)://\(urlHost)/v0/item/\(id).json"
 	}
 	
-	func loadStory(for id: Int, completion: @escaping (Story?) -> Void) {
+	func loadStory(for id: Int, type: StoryType, completion: @escaping ((type: StoryType, Story?)) -> Void) {
 		let path = createPathToItem(id: id)
 		guard let url = URL(string: path) else {
 			assert(false)
-			completion(nil)
+			completion((type, nil))
 			return
 		}
 		
-		loadQueue.async(flags: .barrier) {
+		loadQueue.async(flags: .barrier) { [type] in
 			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
 				DispatchQueue.main.async {
-					completion(nil)
+					completion((type, nil))
 				}
 				return
 			}
-			let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+			let dataTask = URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
 				var result: Story?
 				guard error == nil
 					, let data = data else {
@@ -100,7 +100,7 @@ class LoadManager {
 							self.dataTasks.remove(at: index)
 						}
 						DispatchQueue.main.async {
-							completion(result)
+							completion((type, result))
 						}
 						return
 				}
@@ -113,7 +113,7 @@ class LoadManager {
 					self.dataTasks.remove(at: index)
 				}
 				DispatchQueue.main.async {
-					completion(result)
+					completion((type, result))
 				}
 			}
 			self.dataTasks.append(dataTask)
@@ -127,13 +127,15 @@ class LoadManager {
 		let group = DispatchGroup()
 		for id in ids {
 			group.enter()
-			loadStory(for: id) { story in
-				result.append(story)
+			loadStory(for: id, type: type) { [type] (storyType, story) in
+				if storyType == type {
+					result.append(story)
+				}
 				group.leave()
 			}
 		}
 		
-		group.notify(queue: .main) {
+		group.notify(queue: .main) { [type] in
 			var sortedResult = [Story?]()
 			for id in ids {
 				sortedResult.append(result.first(where: { $0?.id == id }) ?? nil)
