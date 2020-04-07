@@ -37,7 +37,7 @@ class LoadManager {
 			return
 		}
 		
-		loadQueue.async { [type] in
+		loadQueue.async(flags: .barrier) { [type] in
 			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
 				DispatchQueue.main.async {
 					completion((type, []))
@@ -85,7 +85,7 @@ class LoadManager {
 			return
 		}
 		
-		loadQueue.async {
+		loadQueue.async(flags: .barrier) {
 			if self.dataTasks.contains(where: { $0.originalRequest?.url == url }) {
 				DispatchQueue.main.async {
 					completion(nil)
@@ -143,7 +143,7 @@ class LoadManager {
 	}
 	
 	func cancelAllTasks() {
-		loadQueue.sync {
+		loadQueue.async(flags: .barrier) {
 			self.dataTasks.forEach({ $0.cancel() })
 			self.dataTasks.removeAll()
 		}
