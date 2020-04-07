@@ -47,7 +47,7 @@ class StoryViewController: UIViewController {
 	}
 	
 	func fetchIdsStories(_ type: StoryType) {
-		LoadManager.shared.cancelAllTasks()
+		LoadManager.shared.cancelAllOperations()
 		LoadManager.shared.loadIdsStories(type: type) { (storyType, ids) in
 			if storyType == self.currentStoryType {
 				self.idsStories = ids
@@ -80,7 +80,7 @@ class StoryViewController: UIViewController {
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
 		guard let storyType = StoryType(rawValue: sender.selectedSegmentIndex) else { return }
-		LoadManager.shared.cancelAllTasks()
+		LoadManager.shared.cancelAllOperations()
 		idsStories.removeAll()
 		createEmptyArrayStories()
 		loadableRows.removeAll()
@@ -139,7 +139,8 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 		let id = idsStories[row]
 		
 		LoadManager.shared.loadStory(for: id, type: currentStoryType) { [indexPath, id] (storyType, story) in
-			guard storyType == self.currentStoryType else { return }
+			guard storyType == self.currentStoryType
+				&& self.stories.indices.contains(indexPath.row) else { return }
 			guard let story = story, story.id == id else { return }
 			self.stories[indexPath.row] = story
 			guard self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
