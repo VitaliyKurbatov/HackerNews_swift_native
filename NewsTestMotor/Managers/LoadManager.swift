@@ -50,7 +50,7 @@ class LoadManager {
 				completion((type, []))
 				return
 			}
-			let dataTask = URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
+			URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
 				var result = [Int]()
 				guard error == nil
 					, let data = data else {
@@ -67,8 +67,7 @@ class LoadManager {
 				DispatchQueue.main.async {
 					completion((type, result))
 				}
-			}
-			dataTask.resume()
+			}.resume()
 		}
 		operationQueue.addOperation(block)
 	}
@@ -81,7 +80,7 @@ class LoadManager {
 				return
 			}
 			
-			let dataTask = URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
+			URLSession.shared.dataTask(with: url) { [type] (data, response, error) in
 				var result: Story?
 				guard error == nil
 					, let data = data else {
@@ -98,8 +97,7 @@ class LoadManager {
 				DispatchQueue.main.async {
 					completion((type, result))
 				}
-			}
-			dataTask.resume()
+			}.resume()
 		}
 		operationQueue.addOperation(block)
 	}
