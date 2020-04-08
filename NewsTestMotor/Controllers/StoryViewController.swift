@@ -15,11 +15,7 @@ class StoryViewController: UIViewController {
 	let availableStoriesTypes: [StoryType] = [.new, .top, .best]
 	let countOfStoriesForFirstLoad = 20
 	
-	var currentStoryType: StoryType = .new {
-		didSet {
-			fetchIdsStories(currentStoryType)
-		}
-	}
+	var currentStoryType: StoryType = .new
 	
 	var idsStories = [Int]()
 	var stories = [Story?]()
@@ -28,25 +24,31 @@ class StoryViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
+		setupRefreshControl()
+		setupSegmentControl()
 		createEmptyArrayStories()
-		initialSetupSegmentControl()
+		fetchIdsStories(for: currentStoryType)
+	}
+	
+	func setupRefreshControl () {
+		tableView.refreshControl = UIRefreshControl()
+		tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+	}
+	
+	func setupSegmentControl() {
+		for (index, type) in availableStoriesTypes.enumerated() {
+			segmentControl.setTitle(type.description, forSegmentAt: index)
+			if type == currentStoryType {
+				segmentControl.selectedSegmentIndex = index
+			}
+		}
 	}
 	
 	func createEmptyArrayStories() {
 		stories = Array(repeating: nil, count: countOfStoriesForFirstLoad)
 	}
 	
-	func initialSetupSegmentControl() {
-		for (index, type) in availableStoriesTypes.enumerated() {
-			segmentControl.setTitle(type.description, forSegmentAt: index)
-			if type == .new {
-				currentStoryType = .new
-				segmentControl.selectedSegmentIndex = index
-			}
-		}
-	}
-	
-	func fetchIdsStories(_ type: StoryType) {
+	func fetchIdsStories(for type: StoryType) {
 		LoadManager.shared.cancelAllOperations()
 		LoadManager.shared.loadIdsStories(type: type) { (storyType, ids) in
 			if storyType == self.currentStoryType {
@@ -73,21 +75,32 @@ class StoryViewController: UIViewController {
 			let tail: [Story?] = Array(repeating: nil,
 									   count: self.idsStories.count - self.countOfStoriesForFirstLoad)
 			self.stories = stories + tail
-			self.tableView.isScrollEnabled = true
+			self.tableView.isUserInteractionEnabled = true
 			self.tableView.reloadData()
+			self.tableView.refreshControl?.endRefreshing()
 		}
 	}
-
-	@IBAction func switchedStory(_ sender: UISegmentedControl) {
-		guard let storyType = StoryType(rawValue: sender.selectedSegmentIndex) else { return }
+	
+	func resetToDefault() {
 		LoadManager.shared.cancelAllOperations()
 		idsStories.removeAll()
 		createEmptyArrayStories()
 		loadableRows.removeAll()
 		tableView.reloadData()
 		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-		tableView.isScrollEnabled = false
+		tableView.isUserInteractionEnabled = false
+	}
+	
+	@objc func handleRefreshControl() {
+		resetToDefault()
+		fetchIdsStories(for: currentStoryType)
+	}
+
+	@IBAction func switchedStory(_ sender: UISegmentedControl) {
+		guard let storyType = StoryType(rawValue: sender.selectedSegmentIndex) else { return }
+		resetToDefault()
 		currentStoryType = storyType
+		fetchIdsStories(for: currentStoryType)
 	}
 }
 
@@ -101,7 +114,7 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 		tableView.register(nib, forCellReuseIdentifier: StoryTableViewCell.reuseId)
 		
 		tableView.tableFooterView = UIView()
-		tableView.isScrollEnabled = false
+		tableView.isUserInteractionEnabled = false
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
