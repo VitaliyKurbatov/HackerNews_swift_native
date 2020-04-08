@@ -93,32 +93,34 @@ class StoryViewController: UIViewController {
 									   count: self.idsStories.count - self.countOfStoriesForFirstLoad)
 			self.stories = stories + tail
 			self.tableView.isUserInteractionEnabled = true
+			self.tableView.allowsSelection = true
 			self.tableView.reloadData()
 			self.tableView.refreshControl?.endRefreshing()
 		}
 	}
 	
-	// reset tableView to empty state
-	func resetToDefault() {
+	// reset data into properties
+	func resetData() {
 		LoadManager.shared.cancelAllOperations()
 		idsStories.removeAll()
 		createEmptyArrayStories()
 		loadableRows.removeAll()
-		tableView.reloadData()
-		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-		tableView.isUserInteractionEnabled = false
 	}
 	
 	// MARK: - Actions
 	
 	@objc func handleRefreshControl() {
-		resetToDefault()
+		resetData()
+		tableView.allowsSelection = false
 		fetchIdsStories(for: currentStoryType)
 	}
 
 	@IBAction func switchedStory(_ sender: UISegmentedControl) {
 		guard let storyType = StoryType(rawValue: sender.selectedSegmentIndex) else { return }
-		resetToDefault()
+		resetData()
+		tableView.reloadData()
+		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+		tableView.isUserInteractionEnabled = false
 		currentStoryType = storyType
 		fetchIdsStories(for: currentStoryType)
 	}
@@ -142,7 +144,7 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 		let cell = tableView.dequeueReusableCell(withIdentifier: StoryTableViewCell.reuseId, for: indexPath) as! StoryTableViewCell
 		let row = indexPath.row
 		
-		if let story = stories[row] {
+		if stories.indices.contains(row), let story = stories[row] {
 			cell.configure(story: story)
 		} else {
 			cell.setDefaultUI()
@@ -161,7 +163,7 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 	func fetchStoryAndUpdate(indexPath: IndexPath) {
 		// row is like index of id in array idsStories
 		let row = indexPath.row
-		guard idsStories.indices.contains(row) else { return }
+		guard idsStories.indices.contains(row) && stories.indices.contains(row) else { return }
 		guard stories[row] == nil
 			&& !loadableRows.contains(row) else { return }
 		
