@@ -183,9 +183,33 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cell = tableView.cellForRow(at: indexPath) as? StoryTableViewCell else { return }
-		if let urlPath = cell.urlPath, let url = URL(string: urlPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? StoryTableViewCell
+			, let story = cell.story else { return }
+		if let urlPath = story.urlPath, let url = URL(string: urlPath) {
 			performSegue(withIdentifier: segueIdentifier, sender: url)
+		} else {
+			showAlert()
+		}
+	}
+	
+	func showAlert() {
+		let alertController = UIAlertController(title: "Sorry",
+												message: "No data to display",
+												preferredStyle: .alert)
+		let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+		alertController.addAction(cancelAction)
+		
+		if let popoverController = alertController.popoverPresentationController {
+			// settings for iPad
+			popoverController.sourceView = self.view
+			popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+			popoverController.permittedArrowDirections = []
+		}
+		
+		present(alertController, animated: true) {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+				alertController.dismiss(animated: true, completion: nil)
+			}
 		}
 	}
 }

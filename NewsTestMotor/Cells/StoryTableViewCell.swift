@@ -18,14 +18,14 @@ class StoryTableViewCell: UITableViewCell {
 	@IBOutlet weak var dateLabel: UILabel!
 	@IBOutlet weak var authorLabel: UILabel!
 	
-	var urlPath: String?
+	var story: Story?
 	
 	func setDefaultUI() {
 		stackView.isHidden = true
 		titleLabel.text = "Loading..."
 		activityIndicator.isHidden = false
 		activityIndicator.startAnimating()
-		urlPath = nil
+		story = nil
 	}
 	
 	func configure(story: Story) {
@@ -35,7 +35,8 @@ class StoryTableViewCell: UITableViewCell {
 		scoreLabel.text = String(story.score)
 		dateLabel.text = convertDate(story.time)
 		authorLabel.text = story.author
-		urlPath = story.urlPath
+		
+		self.story = story
 	}
 	
 	func convertDate(_ timestamp: Int) -> String {
