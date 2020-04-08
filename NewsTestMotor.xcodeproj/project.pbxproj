@@ -12,6 +12,8 @@
 		FE2DBFA224314AEC0036289A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA024314AEC0036289A /* Main.storyboard */; };
 		FE2DBFA424314AED0036289A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA324314AED0036289A /* Assets.xcassets */; };
 		FE2DBFA724314AED0036289A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE2DBFA524314AED0036289A /* LaunchScreen.storyboard */; };
+		FE622637243E4F1A008D5A2F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE622636243E4F1A008D5A2F /* WebViewController.swift */; };
+		FE62263A243E5524008D5A2F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE622639243E5524008D5A2F /* WebKit.framework */; };
 		FE8B277B243D2EB700776DD7 /* StoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8B277A243D2EB700776DD7 /* StoryType.swift */; };
 		FE8B277D243D2EC900776DD7 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8B277C243D2EC900776DD7 /* Story.swift */; };
 		FEB171D22436810E0083C2D6 /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB171D02436810E0083C2D6 /* StoryTableViewCell.swift */; };
@@ -27,6 +29,8 @@
 		FE2DBFA324314AED0036289A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE2DBFA624314AED0036289A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE2DBFA824314AED0036289A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE622636243E4F1A008D5A2F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		FE622639243E5524008D5A2F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		FE8B277A243D2EB700776DD7 /* StoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryType.swift; sourceTree = "<group>"; };
 		FE8B277C243D2EC900776DD7 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		FEB171D02436810E0083C2D6 /* StoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE62263A243E5524008D5A2F /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +63,7 @@
 			children = (
 				FE2DBF9924314AEC0036289A /* NewsTestMotor */,
 				FE2DBF9824314AEC0036289A /* Products */,
+				FE622638243E5524008D5A2F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +99,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		FE622638243E5524008D5A2F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FE622639243E5524008D5A2F /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FEB957932433E23E00B7C2BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				FEB957912433E0F900B7C2BA /* StoryViewController.swift */,
+				FE622636243E4F1A008D5A2F /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -195,6 +210,7 @@
 				FE2B005A2433EB2900F12EA4 /* LoadManager.swift in Sources */,
 				FE8B277B243D2EB700776DD7 /* StoryType.swift in Sources */,
 				FEB957922433E0F900B7C2BA /* StoryViewController.swift in Sources */,
+				FE622637243E4F1A008D5A2F /* WebViewController.swift in Sources */,
 				FE2DBF9B24314AEC0036289A /* AppDelegate.swift in Sources */,
 				FEB171D22436810E0083C2D6 /* StoryTableViewCell.swift in Sources */,
 			);

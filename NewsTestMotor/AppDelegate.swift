@@ -20,9 +20,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillResignActive(_ application: UIApplication) {
 		LoadManager.shared.cancelAllOperations()
 	}
-	
-	func applicationWillTerminate(_ application: UIApplication) {
-		LoadManager.shared.cancelAllOperations()
-	}
 }
 

@@ -12,6 +12,7 @@ class StoryViewController: UIViewController {
 	@IBOutlet weak var segmentControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 	
+	let segueIdentifier = "show_WebViewController"
 	let availableStoriesTypes: [StoryType] = [.new, .top, .best]
 	let countOfStoriesForFirstLoad = 20
 	
@@ -121,6 +122,15 @@ class StoryViewController: UIViewController {
 		currentStoryType = storyType
 		fetchIdsStories(for: currentStoryType)
 	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == segueIdentifier {
+			guard let vc = segue.destination as? WebViewController else { return }
+			if let url = sender as? URL {
+				vc.url = url
+			}
+		}
+	}
 }
 
 extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
@@ -169,6 +179,13 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 			self.tableView.beginUpdates()
 			self.tableView.reloadRows(at: [indexPath], with: .automatic)
 			self.tableView.endUpdates()
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? StoryTableViewCell else { return }
+		if let urlPath = cell.urlPath, let url = URL(string: urlPath) {
+			performSegue(withIdentifier: segueIdentifier, sender: url)
 		}
 	}
 }
