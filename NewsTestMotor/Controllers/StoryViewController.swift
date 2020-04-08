@@ -30,6 +30,20 @@ class StoryViewController: UIViewController {
 		fetchIdsStories(for: currentStoryType)
 	}
 	
+	// MARK: - Configurations
+	
+	func setupTableView() {
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.prefetchDataSource = self
+		
+		let nib = UINib(nibName: "\(StoryTableViewCell.self)", bundle: nil)
+		tableView.register(nib, forCellReuseIdentifier: StoryTableViewCell.reuseId)
+		
+		tableView.tableFooterView = UIView()
+		tableView.isUserInteractionEnabled = false
+	}
+	
 	func setupRefreshControl () {
 		tableView.refreshControl = UIRefreshControl()
 		tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
@@ -47,6 +61,8 @@ class StoryViewController: UIViewController {
 	func createEmptyArrayStories() {
 		stories = Array(repeating: nil, count: countOfStoriesForFirstLoad)
 	}
+	
+	// MARK: - Filling dataSource
 	
 	func fetchIdsStories(for type: StoryType) {
 		LoadManager.shared.cancelAllOperations()
@@ -81,6 +97,7 @@ class StoryViewController: UIViewController {
 		}
 	}
 	
+	// reset tableView to empty state
 	func resetToDefault() {
 		LoadManager.shared.cancelAllOperations()
 		idsStories.removeAll()
@@ -90,6 +107,8 @@ class StoryViewController: UIViewController {
 		tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 		tableView.isUserInteractionEnabled = false
 	}
+	
+	// MARK: - Actions
 	
 	@objc func handleRefreshControl() {
 		resetToDefault()
@@ -105,18 +124,6 @@ class StoryViewController: UIViewController {
 }
 
 extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
-	func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
-		tableView.prefetchDataSource = self
-		
-		let nib = UINib(nibName: "\(StoryTableViewCell.self)", bundle: nil)
-		tableView.register(nib, forCellReuseIdentifier: StoryTableViewCell.reuseId)
-		
-		tableView.tableFooterView = UIView()
-		tableView.isUserInteractionEnabled = false
-	}
-	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return stories.count
 	}
@@ -155,7 +162,9 @@ extension StoryViewController: UITableViewDataSource, UITableViewDelegate, UITab
 			guard storyType == self.currentStoryType
 				&& self.stories.indices.contains(indexPath.row) else { return }
 			guard let story = story, story.id == id else { return }
+			
 			self.stories[indexPath.row] = story
+			
 			guard self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false else { return }
 			self.tableView.beginUpdates()
 			self.tableView.reloadRows(at: [indexPath], with: .automatic)
