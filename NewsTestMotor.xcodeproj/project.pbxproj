@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		FE2B00592433EB2900F12EA4 /* LoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadManager.swift; sourceTree = "<group>"; };
-		FE2DBF9724314AEC0036289A /* NewsTestMotor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsTestMotor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE2DBF9724314AEC0036289A /* Test Kurbatov.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test Kurbatov.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE2DBF9A24314AEC0036289A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE2DBFA124314AEC0036289A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE2DBFA324314AED0036289A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		FE2DBF9824314AEC0036289A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE2DBF9724314AEC0036289A /* NewsTestMotor.app */,
+				FE2DBF9724314AEC0036289A /* Test Kurbatov.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,7 +151,7 @@
 			);
 			name = NewsTestMotor;
 			productName = NewsTestMotor;
-			productReference = FE2DBF9724314AEC0036289A /* NewsTestMotor.app */;
+			productReference = FE2DBF9724314AEC0036289A /* Test Kurbatov.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -365,7 +365,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = NewsTestMotor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Test Kurbatov";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -384,7 +384,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = NewsTestMotor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Test Kurbatov";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
