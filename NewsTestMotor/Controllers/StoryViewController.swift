@@ -100,17 +100,19 @@ class StoryViewController: UIViewController {
 	}
 	
 	// reset data into properties
-	func resetData() {
+	func resetData(isNeedCleanStories: Bool = true) {
 		LoadManager.shared.cancelAllOperations()
 		idsStories.removeAll()
-		createEmptyArrayStories()
 		loadableRows.removeAll()
+		if isNeedCleanStories {
+			createEmptyArrayStories()
+		}
 	}
 	
 	// MARK: - Actions
 	
 	@objc func handleRefreshControl() {
-		resetData()
+		resetData(isNeedCleanStories: false)
 		tableView.allowsSelection = false
 		fetchIdsStories(for: currentStoryType)
 	}

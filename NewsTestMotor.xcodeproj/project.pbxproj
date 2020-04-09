@@ -357,6 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = B3DG4M692V;
 				INFOPLIST_FILE = NewsTestMotor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -364,6 +365,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "Hacker-News-API";
 				PRODUCT_NAME = "Test Kurbatov";
 				SWIFT_VERSION = 5.0;
@@ -376,6 +378,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = B3DG4M692V;
 				INFOPLIST_FILE = NewsTestMotor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -383,6 +386,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "Hacker-News-API";
 				PRODUCT_NAME = "Test Kurbatov";
 				SWIFT_VERSION = 5.0;
