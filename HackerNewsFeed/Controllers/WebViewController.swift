@@ -1,6 +1,6 @@
 //
 //  WebViewController.swift
-//  NewsTestMotor
+//  HackerNewsFeed
 //
 //  Created by Vitaliy on 08.04.2020.
 //  Copyright © 2020 Vitaliy. All rights reserved.

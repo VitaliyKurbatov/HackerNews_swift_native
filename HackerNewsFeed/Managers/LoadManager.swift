@@ -1,6 +1,6 @@
 //
 //  LoadManager.swift
-//  NewsTestMotor
+//  HackerNewsFeed
 //
 //  Created by Vitaliy on 01.04.2020.
 //  Copyright © 2020 Vitaliy. All rights reserved.
@@ -14,7 +14,7 @@ class LoadManager {
 	let maxStoriesCount = 300
 	
 	private let https = "https"
-	private let urlHost = "hacker-news.firebaseio.com"
+	private let host = "hacker-news.firebaseio.com"
 	
 	private let operationQueue = OperationQueue()
 	
@@ -27,7 +27,7 @@ class LoadManager {
 	func createPathToIdsOfStories(for type: StoryType) -> URL? {
 		var components = URLComponents()
 		components.scheme = https
-		components.host = urlHost
+		components.host = host
 		components.path = "/\(type.pathComponent).json"
 		
 		let queryItems = [URLQueryItem(name: "orderBy", value: "\"$key\""),
@@ -39,7 +39,7 @@ class LoadManager {
 	
 	// MARK: - create url to fetch item from api
 	func createPathToItem(id: Int) -> URL? {
-		let path = "\(https)://\(urlHost)/v0/item/\(id).json"
+		let path = "\(https)://\(host)/v0/item/\(id).json"
 		return URL(string: path)
 	}
 	
