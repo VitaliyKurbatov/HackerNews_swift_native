@@ -21,8 +21,8 @@ class StoryTableViewCell: UITableViewCell {
 	var story: Story?
 	
 	func setDefaultUI() {
+		titleLabel.isHidden = true
 		stackView.isHidden = true
-		titleLabel.text = "Loading..."
 		activityIndicator.isHidden = false
 		activityIndicator.startAnimating()
 		story = nil
@@ -30,6 +30,7 @@ class StoryTableViewCell: UITableViewCell {
 	
 	func configure(story: Story) {
 		activityIndicator.stopAnimating()
+		titleLabel.isHidden = false
 		stackView.isHidden = false
 		titleLabel.text = "     \(story.title)"
 		scoreLabel.text = String(story.score)
